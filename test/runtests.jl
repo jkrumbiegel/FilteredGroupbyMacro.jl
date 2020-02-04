@@ -2,13 +2,13 @@ using GroupbyIndexingMacro
 using DataFrames
 using Test
 
-@testset "GroupbyIndexingMacro.jl" begin
-    df = DataFrame(
-        a = repeat(1:10, inner = 10),
-        b = repeat('a':'e', inner = 20),
-        c = 1:100,
-    )
+df = DataFrame(
+    a = repeat(1:10, inner = 10),
+    b = repeat('a':'e', inner = 20),
+    c = 1:100,
+)
 
+@testset "GroupbyIndexingMacro.jl" begin
     dt_1 = @dt df[!, :b, d = :a .* :c]
     by_1 = by(df, :b, d = (:a, :c) => x -> x.a .* x.c)
 
@@ -27,3 +27,6 @@ using Test
     @test dt_3 == by_3
 end
 
+@testset "Errors" begin
+    @test_broken @dt df[!, :a, :b]
+end

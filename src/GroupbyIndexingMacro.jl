@@ -39,9 +39,11 @@ macro dt(exp)
     end
 end
 
+is_kwarg(x) = false
+is_kwarg(exp::Expr) = exp.head == :kw
 
 function convert_kwexp(kwexp)
-    @assert kwexp.head == :kw
+    !is_kwarg(kwexp) && error("Expected a keyword argument but received $kwexp")
     kw = kwexp.args[1]
     exp = kwexp.args[2]
 
