@@ -35,7 +35,8 @@ macro dt(exp)
             # groupby
             $byexp;
             # new columns from computations
-            $(conv_kwexps...))
+            $(conv_kwexps...),
+        )
     end
 end
 
