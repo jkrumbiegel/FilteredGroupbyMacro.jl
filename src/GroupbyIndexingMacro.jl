@@ -25,6 +25,8 @@ macro dt(exp)
     byexp = args[2]
     kwexps = args[3:end]
 
+    validate_byexp(byexp)
+
     conv_filterexp = replace_quotenodes_filterexp!(filterexp, df)
     conv_kwexps = convert_kwexp.(kwexps)
 
@@ -42,6 +44,10 @@ end
 
 is_kwarg(x) = false
 is_kwarg(exp::Expr) = exp.head == :kw
+
+function validate_byexp(exp)
+    is_kwarg(exp) && error("Groupby expression missing, found keyword argument $exp instead.")
+end
 
 function convert_kwexp(kwexp)
     !is_kwarg(kwexp) && error("Expected a keyword argument but received $kwexp")
