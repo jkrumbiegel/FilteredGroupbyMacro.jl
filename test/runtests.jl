@@ -27,6 +27,17 @@ df = DataFrame(
     @test dt_3 == by_3
 end
 
-@testset "Errors" begin
-    @test_broken @dt df[!, :a, :b]
+@testset "In Function" begin
+    function test(df)
+        @dt df[!, :a, csum = sum(:c)]
+    end
+
+    dt = test(df)
+
+    function test2(df)
+        localsumfunc = x -> sum(x)
+        @dt df[!, :a, csum = localsumfunc(:c)]
+    end
+
+    dt2 = test2(df)
 end

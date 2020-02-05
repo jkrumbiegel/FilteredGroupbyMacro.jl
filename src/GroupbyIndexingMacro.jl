@@ -50,7 +50,7 @@ function convert_kwexp(kwexp)
     replace_quotenodes!(exp)
     quotenodes = all_quotenodes(exp)
 
-    :($(esc(kw)) = ($(quotenodes...),) => $(esc(:subdf)) -> $exp)
+    :($(esc(kw)) = ($(quotenodes...),) => $(esc(:subdf)) -> $(esc(exp)))
 end
 
 function all_quotenodes(exp)
@@ -71,7 +71,7 @@ function replace_quotenodes!(exp::Expr)
     for (i, a) in enumerate(exp.args)
         if a isa QuoteNode
             sym = a.value
-            exp.args[i] = :($(esc(:subdf)).$sym)
+            exp.args[i] = :(subdf.$sym)
         elseif a isa Expr
             replace_quotenodes!(a)
         end
