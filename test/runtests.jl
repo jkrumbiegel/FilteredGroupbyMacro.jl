@@ -8,7 +8,7 @@ df = DataFrame(
     c = 1:100,
 )
 
-@testset "GroupbyIndexingMacro.jl" begin
+@testset "Base functionality" begin
     dt_1 = @dt df[!, :b, d = :a .* :c]
     by_1 = by(df, :b, d = (:a, :c) => x -> x.a .* x.c)
 
@@ -41,3 +41,21 @@ end
 
     dt2 = test2(df)
 end
+
+@testset "Sorted keyword" begin
+    df2 = DataFrame(a = 2:-1:1, b = 1:2)
+    dt = @dt df2[!, :a, c = 1 * :b]
+    @test dt.a == [2, 1]
+    @test dt.c == [1, 2]
+
+    dt2 = @dt df2[!, :a, c = 1 * :b; sort = true]
+    @test dt2.a == [1, 2]
+    @test dt2.c == [2, 1]
+end
+
+# @testset "Single symbol" begin
+#     df2 = DataFrame(a = 2:-1:1, b = 1:2)
+#     dt = @dt df2[!, :a, c = :b] # just :b
+#     @test dt.a == [2, 1]
+#     @test dt.c == [1, 2]
+# end

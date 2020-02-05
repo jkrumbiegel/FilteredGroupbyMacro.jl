@@ -21,6 +21,17 @@ macro dt(exp)
     # nargs = length(exp.args) - 1
     args = exp.args[2:end]
 
+
+    # additional keyword parameters after the ;
+    kwparams = if args[1] isa Expr && args[1].head == :parameters
+        params = args[1].args
+        deleteat!(args, 1)
+        esc(params...)
+    else
+        # empty splatted keyword params
+        esc(:(NamedTuple()...))
+    end
+
     filterexp = args[1]
     byexp = args[2]
     kwexps = args[3:end]
@@ -28,6 +39,7 @@ macro dt(exp)
     validate_byexp(byexp)
 
     conv_filterexp = replace_quotenodes_filterexp!(filterexp, df)
+
     conv_kwexps = convert_kwexp.(kwexps)
 
     quote
@@ -38,6 +50,7 @@ macro dt(exp)
             $byexp;
             # new columns from computations
             $(conv_kwexps...),
+            $kwparams
         )
     end
 end
@@ -60,14 +73,13 @@ function convert_kwexp(kwexp)
     :($(esc(kw)) = ($(quotenodes...),) => $(esc(:subdf)) -> $(esc(exp)))
 end
 
-function all_quotenodes(exp)
+all_quotenodes(any) = QuoteNode[]
+all_quotenodes(qn::QuoteNode) = [qn]
+
+function all_quotenodes(exp::Expr)
     quotenodes = QuoteNode[]
     for a in exp.args
-        if a isa QuoteNode
-            push!(quotenodes, a)
-        elseif a isa Expr
-            append!(quotenodes, all_quotenodes(a))
-        end
+        append!(quotenodes, all_quotenodes(a))
     end
     quotenodes
 end
