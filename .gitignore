@@ -8,3 +8,5 @@
 /docs/site/
 
 test/Manifest.toml
+
+.vscode/
