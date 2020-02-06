@@ -53,6 +53,12 @@ end
     @test dt2.c == [2, 1]
 end
 
+@testset "Assign syntax" begin
+    df2 = DataFrame(a = [1, 1, 2, 2], b = 1:4)
+    dt = @dt df2[!, :a, c := sum(:b)]
+    @test dt == DataFrame(a = [1, 1, 2, 2], b = 1:4, c = [3, 3, 7, 7])
+end
+
 # @testset "Single symbol" begin
 #     df2 = DataFrame(a = 2:-1:1, b = 1:2)
 #     dt = @dt df2[!, :a, c = :b] # just :b
