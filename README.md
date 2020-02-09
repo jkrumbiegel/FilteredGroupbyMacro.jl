@@ -40,3 +40,14 @@ by(diamonds[(diamonds.Price .> 3000) .& (diamonds.Carat .> 0.3), :], :Cut,
     MeanPricePerCarat = (:Price, :Carat) => x -> mean(x.Price) / mean(x.Carat),
     MostFreqColor = :Color => x -> sort(collect(countmap(x)), by = last)[end][1])
 ```
+
+You can also use assignment syntax to join the groupby result with the filtered table:
+
+```julia
+using GroupbyIndexingMacro # hide
+using DataFrames # hide
+df = DataFrame(a = repeat(1:3, 3), b = repeat('a':'c', 3))
+# the result of this will be df with a new column sum_a
+# that contains the same sum_a for every row in each group based on :b
+@dt df[!, :b, sum_a := sum(:a)]
+```
