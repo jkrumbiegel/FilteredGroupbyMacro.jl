@@ -1,17 +1,17 @@
-using Documenter, GroupbyIndexingMacro
+using Documenter, FilteredGroupbyMacro
 
 makedocs(;
-    modules=[GroupbyIndexingMacro],
+    modules=[FilteredGroupbyMacro],
     format=Documenter.HTML(),
     pages=[
         "Home" => "index.md",
     ],
-    repo="https://github.com/jkrumbiegel/GroupbyIndexingMacro.jl/blob/{commit}{path}#L{line}",
-    sitename="GroupbyIndexingMacro.jl",
+    repo="https://github.com/jkrumbiegel/FilteredGroupbyMacro.jl/blob/{commit}{path}#L{line}",
+    sitename="FilteredGroupbyMacro.jl",
     authors="Julius Krumbiegel",
     assets=String[],
 )
 
 deploydocs(;
-    repo="github.com/jkrumbiegel/GroupbyIndexingMacro.jl",
+    repo="github.com/jkrumbiegel/FilteredGroupbyMacro.jl",
 )

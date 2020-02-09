@@ -1,4 +1,4 @@
-name = "GroupbyIndexingMacro"
+name = "FilteredGroupbyMacro"
 uuid = "d46d16aa-1548-45e6-bb37-c0a3431c6626"
 authors = ["Julius Krumbiegel"]
 version = "0.1.0"

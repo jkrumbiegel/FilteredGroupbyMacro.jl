@@ -1,4 +1,4 @@
-using GroupbyIndexingMacro
+using FilteredGroupbyMacro
 using DataFrames
 using Test
 

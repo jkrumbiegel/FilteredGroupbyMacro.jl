@@ -1,14 +1,14 @@
-# GroupbyIndexingMacro
+# FilteredGroupbyMacro
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://jkrumbiegel.github.io/GroupbyIndexingMacro.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://jkrumbiegel.github.io/GroupbyIndexingMacro.jl/dev)
-[![Build Status](https://travis-ci.com/jkrumbiegel/GroupbyIndexingMacro.jl.svg?branch=master)](https://travis-ci.com/jkrumbiegel/GroupbyIndexingMacro.jl)
-[![Codecov](https://codecov.io/gh/jkrumbiegel/GroupbyIndexingMacro.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/jkrumbiegel/GroupbyIndexingMacro.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://jkrumbiegel.github.io/FilteredGroupbyMacro.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://jkrumbiegel.github.io/FilteredGroupbyMacro.jl/dev)
+[![Build Status](https://travis-ci.com/jkrumbiegel/FilteredGroupbyMacro.jl.svg?branch=master)](https://travis-ci.com/jkrumbiegel/FilteredGroupbyMacro.jl)
+[![Codecov](https://codecov.io/gh/jkrumbiegel/FilteredGroupbyMacro.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/jkrumbiegel/FilteredGroupbyMacro.jl)
 
 
 ## Filtered split-apply-combine as in R's data.table
 
-GroupbyIndexingMacro.jl offers a macro `@by` with which a concise syntax for filtered
+FilteredGroupbyMacro.jl offers a macro `@by` with which a concise syntax for filtered
 split-apply-combine operations can be expressed concisely. It is very similar in nature
 to the `[i,j,by]` indexing that the well-known package data.table in the R ecosystem uses.
 
@@ -20,7 +20,7 @@ An example with the well-known *diamonds* dataset:
 
 ```julia
 using RDatasets
-using GroupbyIndexingMacro
+using FilteredGroupbyMacro
 using StatsBase
 
 diamonds = dataset("ggplot2", "diamonds")
@@ -44,7 +44,7 @@ by(diamonds[(diamonds.Price .> 3000) .& (diamonds.Carat .> 0.3), :], :Cut,
 You can also use assignment syntax to join the groupby result with the filtered table:
 
 ```julia
-using GroupbyIndexingMacro # hide
+using FilteredGroupbyMacro # hide
 using DataFrames # hide
 df = DataFrame(a = repeat(1:3, 3), b = repeat('a':'c', 3))
 # the result of this will be df with a new column sum_a

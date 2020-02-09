@@ -1,8 +1,8 @@
-# GroupbyIndexingMacro.jl
+# FilteredGroupbyMacro.jl
 
 ## Filtered split-apply-combine as in R's data.table
 
-GroupbyIndexingMacro.jl offers a macro `@by` with which
+FilteredGroupbyMacro.jl offers a macro `@by` with which
 split-apply-combine operations on filtered data frames can be expressed concisely. It is very similar in nature
 to the `[i,j,by]` indexing that the well-known package data.table in the R ecosystem uses.
 
@@ -14,7 +14,7 @@ An example with the well-known *diamonds* dataset:
 
 ```@example
 using RDatasets
-using GroupbyIndexingMacro
+using FilteredGroupbyMacro
 using StatsBase
 
 diamonds = dataset("ggplot2", "diamonds")
@@ -32,7 +32,7 @@ the following standard DataFrames function calls:
 
 ```@example
 using RDatasets # hide
-using GroupbyIndexingMacro # hide
+using FilteredGroupbyMacro # hide
 using StatsBase # hide
 
 diamonds = dataset("ggplot2", "diamonds") # hide
@@ -53,7 +53,7 @@ want to keep working with a full dataset after calculating group-wise summary st
 which are then repeated for each group row.
 
 ```@example
-using GroupbyIndexingMacro # hide
+using FilteredGroupbyMacro # hide
 using DataFrames # hide
 df = DataFrame(a = repeat(1:3, 3), b = repeat('a':'c', 3))
 @by df[!, :b, sum_a := sum(:a)]
@@ -62,7 +62,7 @@ df = DataFrame(a = repeat(1:3, 3), b = repeat('a':'c', 3))
 Compare this to the non-assignment syntax:
 
 ```@example
-using GroupbyIndexingMacro # hide
+using FilteredGroupbyMacro # hide
 using DataFrames # hide
 df = DataFrame(a = repeat(1:3, 3), b = repeat('a':'c', 3)) # hide
 @by df[!, :b, sum_a = sum(:a)]

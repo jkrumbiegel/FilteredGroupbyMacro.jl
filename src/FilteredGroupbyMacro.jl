@@ -1,4 +1,4 @@
-module GroupbyIndexingMacro
+module FilteredGroupbyMacro
 
 import DataFrames
 
