@@ -44,8 +44,8 @@ by(diamonds[(diamonds.Price .> 3000) .& (diamonds.Carat .> 0.3), :], :Cut,
 You can also use assignment syntax to join the groupby result with the filtered table:
 
 ```julia
-using FilteredGroupbyMacro # hide
-using DataFrames # hide
+using FilteredGroupbyMacro
+using DataFrames
 df = DataFrame(a = repeat(1:3, 3), b = repeat('a':'c', 3))
 # the result of this will be df with a new column sum_a
 # that contains the same sum_a for every row in each group based on :b
