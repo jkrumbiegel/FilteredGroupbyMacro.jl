@@ -2,11 +2,11 @@
 
 ## Filtered split-apply-combine as in R's data.table
 
-GroupbyIndexingMacro.jl offers a macro `@by` with which a concise syntax for filtered
-split-apply-combine operations can be expressed concisely. It is very similar in nature
+GroupbyIndexingMacro.jl offers a macro `@by` with which
+split-apply-combine operations on filtered data frames can be expressed concisely. It is very similar in nature
 to the `[i,j,by]` indexing that the well-known package data.table in the R ecosystem uses.
 
-The order is slightly different. Here, you have to specify:
+The order of arguments is slightly different. Here, you have to specify:
 
 `[filter, grouping_keys, new_column_keyword_args...]`
 
