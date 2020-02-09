@@ -32,3 +32,11 @@ diamonds = dataset("ggplot2", "diamonds")
     MeanPricePerCarat = mean(:Price) / mean(:Carat),
     MostFreqColor = sort(collect(countmap(:Color)), by = last)[end][1]]
 ```
+
+Compare this to the default DataFrames syntax:
+
+```julia
+by(diamonds[(diamonds.Price .> 3000) .& (diamonds.Carat .> 0.3), :], :Cut,
+    MeanPricePerCarat = (:Price, :Carat) => x -> mean(x.Price) / mean(x.Carat),
+    MostFreqColor = :Color => x -> sort(collect(countmap(x)), by = last)[end][1])
+```
