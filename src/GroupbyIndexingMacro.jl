@@ -2,9 +2,9 @@ module GroupbyIndexingMacro
 
 import DataFrames
 
-export @dt
+export @by
 
-macro dt(exp)
+macro by(exp)
     # dump(exp)
 
     exp.head != :ref && error("You have to use [] syntax.")
@@ -14,7 +14,7 @@ macro dt(exp)
     # enable chained calls by applying the macro again if df is actually another nested
     # ref expression
     if df isa Expr
-        df = :(@dt($df))
+        df = :(@by($df))
     end
 
 

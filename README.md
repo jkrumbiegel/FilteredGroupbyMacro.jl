@@ -8,7 +8,7 @@
 
 ## Filtered split-apply-combine as in R's data.table
 
-GroupbyIndexingMacro.jl offers a macro `@dt` with which a concise syntax for filtered
+GroupbyIndexingMacro.jl offers a macro `@by` with which a concise syntax for filtered
 split-apply-combine operations can be expressed concisely. It is very similar in nature
 to the `[i,j,by]` indexing that the well-known package data.table in the R ecosystem uses.
 
@@ -28,7 +28,7 @@ diamonds = dataset("ggplot2", "diamonds")
 # filter by Price and Carat
 # then group by Cut
 # finally compute new columns with keyword names
-@dt diamonds[(:Price .> 3000) .& (:Carat .> 0.3), :Cut,
+@by diamonds[(:Price .> 3000) .& (:Carat .> 0.3), :Cut,
     MeanPricePerCarat = mean(:Price) / mean(:Carat),
     MostFreqColor = sort(collect(countmap(:Color)), by = last)[end][1]]
 ```
@@ -49,5 +49,5 @@ using DataFrames # hide
 df = DataFrame(a = repeat(1:3, 3), b = repeat('a':'c', 3))
 # the result of this will be df with a new column sum_a
 # that contains the same sum_a for every row in each group based on :b
-@dt df[!, :b, sum_a := sum(:a)]
+@by df[!, :b, sum_a := sum(:a)]
 ```
